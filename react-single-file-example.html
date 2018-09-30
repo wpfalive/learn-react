@@ -13,6 +13,7 @@
 
 <body>
   <div id="root"></div>
+  <div id="app"></div>
   <script type="text/babel">
     function tick() {
       ReactDOM.render(
@@ -20,6 +21,87 @@
         document.getElementById('root')
       )
     }
+    // const InputForm = 
+    //   <form target="_blank" action="https://google.com/search">
+    //     <div>Enter input and click search</div>
+    //     <input name="q" className="input" />
+    //     <Button label="Search" />
+    //   </form>
+    
+    // const Doubler = ({value=[1, 2, 3]}) => 
+    //   <div>
+    //     { value.map(e => e * 2) }
+    //   </div>
+
+    // ReactDOM.render(<Doubler />, document.getElementById('app'))
+    
+    class Button extends React.Component {
+      clickCounter = 0
+
+      handleClick = () => {
+        console.log(`Clicked: ${++this.clickCounter}`)
+      }
+      render () {
+        return (
+          <button id={this.id} onClick={this.handleClick}>
+            {this.props.label}
+          </button>
+        )
+      }
+    }
+    // ReactDOM.render(<Button label="Save" />, document.querySelector('#app'))
+
+    class CounterButton extends React.Component {
+      state = {
+        clickCounter: 0,
+        currentTimestamp: new Date(),
+      }
+
+      handleClick = () => {
+        this.setState((prevState) => {
+          return {
+            clickCounter: prevState.clickCounter + 1
+          }
+        })
+      }
+
+      componentDidMount () {
+        setInterval(() => {
+          this.setState({
+            currentTimestamp: new Date()
+          })
+        }, 1000)
+      }
+
+      render () {
+        return (
+          <div>
+            <button onClick={this.handleClick}>Click</button>
+            <p>Clicked: {this.state.clickCounter}</p>
+            <p>Time: {this.state.currentTimestamp.toLocaleString()}</p>
+          </div>
+        )
+      }
+    }
+
+    // ReactDOM.render(<CounterButton />, document.querySelector('#app'))
+
+    class ShoppingList extends React.Component {
+      render () {
+        return (
+          <div className="shopping-list">
+            <h1>Shopping List for {this.props.name}</h1>
+            <ul>
+              <li>Instagram</li>
+              <li>WhatsApp</li>
+              <li>Oculus</li>
+            </ul>
+          </div>
+        )
+      }
+    }
+    ReactDOM.render(<ShoppingList />, document.querySelector('#app'))
+
     class Clock extends React.Component {
       constructor (props) {
         super(props)
